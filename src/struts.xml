@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--
+
+        ### if specified, the default object factory can be overridden here
+        ### Note: short-hand notation is supported in some cases, such as "spring"
+        ###       Alternatively, you can provide a com.opensymphony.xwork2.ObjectFactory subclass name here
+        # struts.objectFactory = spring  将action的创建交给了spring
+
+        ### specifies the autoWiring logic when using the SpringObjectFactory.
+        ### valid values are: name, type, auto, and constructor (name is the default)
+        struts.objectFactory.spring.autoWire = name  spring负责装配action的依赖属性  默认打开的
+
+        spring整合struts2配置常量struts.objectFactory
+    -->
+    <!--<constant name="struts.objectFactory" value="spring"/>-->
+
+    <package name="default" namespace="/" extends="struts-default">
+            <!-- class属性写spring中action对象的BeanName
+               完全由spring管理action的生命周期,包括action的创建
+               注意:需要手动组装依赖
+            -->
+        <action name="user_*" class="userAction" method="{1}">
+            <result name="success">/success.jsp</result>
+        </action>
+    </package>
+
+</struts>
