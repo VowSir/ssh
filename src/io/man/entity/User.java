@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
+
 /**
  * 描述:
  *
@@ -12,8 +14,12 @@ import lombok.ToString;
  * @create 2018-03-12 19:27
  */
 @Setter@Getter@NoArgsConstructor@ToString
+@Entity
+@Table(name = "t_user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 

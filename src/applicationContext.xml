@@ -9,6 +9,12 @@
 							http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 							http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd ">
 
+    <!-- dao层引入注解的驱动 -->
+    <context:component-scan base-package="io.man"/>
+
+    <!-- 引入事务的注解驱动 -->
+    <aop:aspectj-autoproxy/>
+
     <!-- 引入db.properties文件 -->
     <context:property-placeholder location="classpath:db.properties"/>
 
@@ -36,9 +42,9 @@
             </props>
         </property>
         <!-- 映射文件 -->
-        <property name="mappingResources">
+        <property name="packagesToScan">
             <list>
-                <value>io/man/entity/User.hbm.xml</value>
+                <value>io.man.entity</value>
             </list>
         </property>
 
@@ -51,24 +57,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- 配置事务的通知 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="add*"/>
-            <tx:method name="update*"/>
-            <tx:method name="delete*"/>
-            <tx:method name="save*"/>
-        </tx:attributes>
-    </tx:advice>
+    <!-- 事务驱动注解 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <!-- 配置事务的切面 -->
-    <aop:config>
-        <aop:pointcut id="myPointcut" expression="execution(* io.man.service..*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
-    </aop:config>
 
-    <!-- 引入用户的配置 -->
-    <import resource="user.xml"/>
 
 </beans>
