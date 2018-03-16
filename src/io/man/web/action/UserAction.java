@@ -44,7 +44,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 
     }
 
-    //测试玩玩而已
+    //仅供测试
+   @Action(value = "find")
     public void find() {
         String id =  ServletActionContext.getRequest().getParameter("id");
         Integer i = Integer.parseInt(id);

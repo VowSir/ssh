@@ -23,7 +23,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
     @Override
     public User findUserById(Integer id) {
-        User load = this.getHibernateTemplate().get(User.class, id);
+        User load = this.getHibernateTemplate().load(User.class, id);
         return load;
     }
 
